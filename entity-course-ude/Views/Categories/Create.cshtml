@@ -1,0 +1,56 @@
+@model entity_course_ude.Models.Category
+@{
+    ViewData["Title"] = "Crear categoría";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 class="text-center">Crear una nueva categoría</h3>
+<form method="post" asp-action="Create">
+    <div class="row">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="col-11 mt-4">
+            <div class="row">
+                <div class="col-4">
+                    <label asp-for="Name">Nombre</label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-4">
+                    <label asp-for="CreatedAt">Fecha de creación</label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="CreatedAt" class="form-control" />
+                    <span asp-validation-for="CreatedAt" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-4">
+                    <label asp-for="Active">Estado</label>
+                </div>
+                <div class="col-8">
+                    <div class="form-check">
+                        <input type="radio" asp-for="Active" class="form-check-input" value="true" id="active-true" />
+                        <label class="form-check-label" for="active-true">Activo</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" asp-for="Active" class="form-check-input" value="false" id="active-false" />
+                        <label class="form-check-label" for="active-false">Inactivo</label>
+                    </div>
+                    <span asp-validation-for="Active" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-3">
+            <a asp-action="Index" class="btn btn-secondary">Volver a lista</a>
+        </div>
+        <div class="col-5 offset-4">
+            <button type="submit" class="btn btn-primary form-control">Crear</button>
+        </div>
+    </div>
+</form>

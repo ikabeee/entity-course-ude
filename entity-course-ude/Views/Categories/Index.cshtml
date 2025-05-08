@@ -1,0 +1,84 @@
+@model IEnumerable<entity_course_ude.Models.Category>
+@{
+    ViewData["Title"] = "Categorías";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="row">
+    <div class="col-4">
+        <h1>@ViewData["Title"]</h1>
+    </div>
+    <div class="col-3">
+        <a asp-action="Create" class="btn btn-primary text-white form-control">Crear Categoría</a>
+    </div>
+    <div class="col-5">
+        <a asp-action="CreateMultiple5Categories" class="btn btn-secondary text-white form-control">Crear Categoría
+            Multiple (5 categorías)</a>
+        <br />
+        <br />
+        <a asp-action="CreateMultiple2Categories" class="btn btn-secondary text-white form-control">Crear Categoría
+            Multiple (2 categorías)</a>
+        <br />
+        <br />
+        <a asp-action="ViewCreateMultipleOptionForm" class="btn btn-secondary text-white form-control">Crear Multiples
+            Categorías en Formulario</a>
+        <br />
+        <br />
+        <a asp-action="Delete2Categories" class="btn btn-secondary text-white form-control">Borrar Multiple (2
+            categorías)</a>
+        <br />
+        <br />
+        <a asp-action="Delete5Categories" class="btn btn-warning text-white form-control">Borrar Multiple (5
+            categorías)</a>
+
+
+    </div>
+
+</div>
+</div>
+
+</div>
+</div>
+
+<div>
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-striped border">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Estado</th>
+                    <th>Descripción</th>
+                    <th>Fecha de creación</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var category in Model)
+                {
+                    <tr>
+                        <td>@category.Category_Id</td>
+                        <td>@category.Name</td>
+                        <td>@category.Product</td>
+                        <td>@category.Active</td>
+                        <td>@category.CreatedAt</td>
+                        <td>
+                            <a class="btn btn-primary text-white" asp-action="Edit"
+                                asp-route-id="@category.Category_Id">Editar</a>
+                            <a class="btn btn-danger text-white" asp-action="Delete"
+                                asp-route-id="@category.Category_Id">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    }
+    else
+    {
+        <p>No hay categorías</p>
+    }
+</div>

@@ -1,0 +1,43 @@
+# Ignore build outputs
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Logs
+*.log
+
+# IDE-specific files
+.vscode/
+.idea/
+
+# Dependency directories
+packages/
+node_modules/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+
+# ASP.NET Scaffolding
+.scaffolding/
+
+# Publish output
+wwwroot/
+
+# Rider
+.idea/
+*.sln.iml
+
+# Fake build tool
+.fake
+
+# JetBrains Rider
+.idea/
+*.sln.iml
