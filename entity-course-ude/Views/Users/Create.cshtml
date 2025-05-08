@@ -1,0 +1,54 @@
+@model entity_course_ude.Models.UserUserDetailViewModel
+@{
+    ViewData["Title"] = "Crear usuario";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 class="text-center">Crear un nuevo Usuario</h3>
+<form method="post" asp-action="Create">
+    <div class="row">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="col-11 mt-4">
+            <div class="row">
+                <div class="col-4">
+                    <label asp-for="User.Name">Nombre</label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="User.Name" class="form-control" />
+                    <span asp-validation-for="User.Name" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <label asp-for="User.Email">Descripcion</label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="User.Email" class="form-control" />
+                    <span asp-validation-for="User.Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <label asp-for="User.UserDetail">Categorías</label>
+                </div>
+                <div class="col-8">
+                    @Html.DropDownListFor(u => u.User.UserDetail_Id, Model.UserDetailList, "--Lista de Categorías", new {@class = "form-control"})
+                    <span asp-validation-for="User.UserDetail_Id" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-3">
+            <a asp-action="Index" class="btn btn-secondary">Volver a lista</a>
+        </div>
+        <div class="col-5 offset-4">
+            <button type="submit" class="btn btn-primary form-control">Crear</button>
+        </div>
+    </div>
+</form>
+
+@section  Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

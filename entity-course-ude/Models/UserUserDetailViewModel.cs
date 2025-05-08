@@ -9,6 +9,6 @@ namespace entity_course_ude.Models
     public class UserUserDetailViewModel
     {
         public User User { get; set; }
-        public IEnumerable<SelectListItem> UserList;
+        public IEnumerable<SelectListItem> UserDetailList;
     }
 }
