@@ -57,5 +57,18 @@ namespace entity_course_ude.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpGet("Delete")]
+        public IActionResult Delete(int? id)
+        {
+            var tag = _context.Tag.FirstOrDefault(t => t.Tag_Id == id);
+            if(id == null)
+            {
+                return NotFound();
+            }
+            _context.Tag.Remove(tag);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

@@ -77,6 +77,5 @@ namespace entity_course_ude.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
-        
     }
 }
