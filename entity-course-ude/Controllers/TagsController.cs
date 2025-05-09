@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using entity_course_ude.data;
 using entity_course_ude.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace entity_course_ude.Controllers
@@ -64,7 +65,7 @@ namespace entity_course_ude.Controllers
         public IActionResult Delete(int? id)
         {
             var tag = _context.Tag.FirstOrDefault(t => t.Tag_Id == id);
-            if (id == null)
+            if (tag == null)
             {
                 return NotFound();
             }
