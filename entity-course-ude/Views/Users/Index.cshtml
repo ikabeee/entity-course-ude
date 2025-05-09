@@ -39,10 +39,9 @@
                         <td>@user.Email</td>
                         <td>@user.UserDetail_Id</td>
                         <td>
-                            <a class="btn btn-primary text-white" asp-action="Edit"
-                                asp-route-id="@user.Id">Editar</a>
-                            <a class="btn btn-danger text-white" asp-action="Delete"
-                                asp-route-id="@user.Id">Eliminar</a>
+                            <a class="btn btn-primary text-white" asp-action="Edit" asp-route-id="@user.Id">Editar</a>
+                            <a class="btn btn-secondary text-white" asp-action="Detail" asp-route-id="@user.Id">Detalle</a>
+                            <a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@user.Id">Eliminar</a>
                         </td>
                     </tr>
                 }
