@@ -138,10 +138,15 @@ namespace entity_course_ude.Controllers
             });
             return View(productTags);
         }
-        // [HttpPost]
-        // public IActionResult ManageTags(int id)
-        // {
-            
-        // }
+        [HttpPost("ManageTags")]
+        public IActionResult ManageTags(ProductTagViewModel productTags)
+        {
+            if (productTags.ProductTag.Product_Id != 0 && productTags.ProductTag.Tag_Id != 0)
+            {
+                _context.ProductTag.Add(productTags.ProductTag);
+                _context.SaveChanges();
+            }
+            return RedirectToAction(nameof(ManageTags), new {@id = productTags.ProductTag.Product_Id});
+        }
     }
 }
