@@ -10,6 +10,7 @@ namespace entity_course_ude.Models
     {
         [Key]
         public int Tag_Id { get; set; }
+        [Required]
         public string Name { get; set; }
         public DateTime Date { get; set; }
     }

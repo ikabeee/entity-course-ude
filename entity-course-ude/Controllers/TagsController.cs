@@ -18,9 +18,11 @@ namespace entity_course_ude.Controllers
         {
             _context = context;
         }
+        [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            List<Tag> TagList = _context.Tag.ToList();
+            return View(TagList);
         }
         [HttpGet("Create")]
         public IActionResult Create()
