@@ -62,7 +62,7 @@ namespace entity_course_ude.Controllers
         public IActionResult Delete(int? id)
         {
             var tag = _context.Tag.FirstOrDefault(t => t.Tag_Id == id);
-            if(id == null)
+            if (id == null)
             {
                 return NotFound();
             }

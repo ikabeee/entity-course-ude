@@ -1,0 +1,58 @@
+@model IEnumerable<entity_course_ude.Models.Tag>
+@{
+    ViewData["Title"] = "Etiquetas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="row">
+    <div class="col-4">
+        <h1>@ViewData["Title"]</h1>
+    </div>
+    <div class="col-3">
+        <a asp-action="Create" class="btn btn-primary text-white form-control">Crear etiquetas</a>
+    </div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div>
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-striped border">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(a => a.Tag_Id)</th>
+                    <th>@Html.DisplayNameFor(a => a.Name)</th>
+                    <th>@Html.DisplayNameFor(a => a.Date)</th>
+                    <th>Acciones</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Model)
+                {
+                    <tr>
+                        <td>@product.Tag_Id</td>
+                        <td>@product.Name</td>
+                        <td>@product.Date</td>
+                        <td>
+                            <a class="btn btn-primary text-white" asp-action="Edit"
+                                asp-route-id="@product.Tag_Id">Editar</a>
+                            <a class="btn btn-danger text-white" asp-action="Delete"
+                                asp-route-id="@product.Tag_Id">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    }
+    else
+    {
+        <p>No hay Etiquetas</p>
+    }
+</div>
