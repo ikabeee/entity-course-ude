@@ -5,11 +5,12 @@
 }
 
 <h3 class="text-center">Administrar etiquetas para el producto</h3>
-<form method="post" asp-action="ManageTags">
-    <input type="hidden" asp-for="Product.Product_Id" />
-    <input type="hidden" asp-for="ProductTag.Product_Id" />
-    <div class="row">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="row">
+    <form method="post" asp-action="ManageTags">
+        <input type="hidden" asp-for="Product.Product_Id" />
+        <input type="hidden" asp-for="ProductTag.Product_Id" />
+        <div class="row">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="col-11 mt-4">
                 <div class="row">
                     <div class="col-4">
@@ -40,4 +41,27 @@
                 &nbsp;
             </div>
         </div>
-</form>
+    </form>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <form action="post" method="DeleteTags">
+            <input type="hidden" asp-for="@Model.Product.Product_Id">
+            <div class="row text-right">
+                <div class="col-12 text right h4 text-primary">
+                    Etiquetas asociadas a este producto
+                </div>
+            </div>
+            @foreach(var item in Model.ProductTagList)
+            {
+                <div class="row pb-2">
+                    <div class="col-8 text-right" style="font-size:24;">@item.Tag.Name</div>
+                    <div class="col-4">
+                        <button asp-action="DeleteTags" type="=submit" class="btn btn-danger form-control" asp-route-idTag="@item.Tag_Id">Eliminar etiqueta</button>
+                    </div>
+                </div>
+            }
+        </form>
+    </div>
+</div>

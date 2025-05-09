@@ -146,7 +146,18 @@ namespace entity_course_ude.Controllers
                 _context.ProductTag.Add(productTags.ProductTag);
                 _context.SaveChanges();
             }
-            return RedirectToAction(nameof(ManageTags), new {@id = productTags.ProductTag.Product_Id});
+            return RedirectToAction(nameof(ManageTags), new { @id = productTags.ProductTag.Product_Id });
+        }
+        [HttpPost("DeleteTags")]
+        public IActionResult DeleteTags(int idTag, ProductTagViewModel productTagViewModel)
+        {
+            int idProduct = productTagViewModel.Product.Product_Id;
+            ProductTag productTag = _context.ProductTag.FirstOrDefault(
+                u => u.Tag_Id == idTag && u.Product_Id == idProduct
+            );
+            _context.ProductTag.Remove(productTagViewModel.ProductTag);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(ManageTags), new { @id = productTagViewModel.ProductTag.Product_Id });
         }
     }
 }
