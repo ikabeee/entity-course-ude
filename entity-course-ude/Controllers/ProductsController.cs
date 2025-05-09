@@ -155,9 +155,9 @@ namespace entity_course_ude.Controllers
             ProductTag productTag = _context.ProductTag.FirstOrDefault(
                 u => u.Tag_Id == idTag && u.Product_Id == idProduct
             );
-            _context.ProductTag.Remove(productTagViewModel.ProductTag);
+            _context.ProductTag.Remove(productTag);
             _context.SaveChanges();
-            return RedirectToAction(nameof(ManageTags), new { @id = productTagViewModel.ProductTag.Product_Id });
+            return RedirectToAction(nameof(ManageTags), new { @id = idProduct });
         }
     }
 }
