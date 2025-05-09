@@ -21,6 +21,8 @@ namespace entity_course_ude.data
         public DbSet<Product> Product { get; set; }
         public DbSet<UserDetail> UserDetail { get; set; }
         public DbSet<Tag> Tag { get; set; }
+        public DbSet<ProductTag> ProductTag { get; set; }
+
 
         //Many to Many
         protected override void OnModelCreating(ModelBuilder modelBuilder)

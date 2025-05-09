@@ -28,9 +28,9 @@ namespace entity_course_ude.Controllers
             // List<Product> productsList = _context.Product.ToList();
             // foreach(var product in productsList)
             // {
-                //2nd option manual load generating a lot SQL Queries
-                // product.Category = _context.Category.FirstOrDefault(c => c.Category_Id == product.Category_Id);
-                //3rd Explicit loading
+            //2nd option manual load generating a lot SQL Queries
+            // product.Category = _context.Category.FirstOrDefault(c => c.Category_Id == product.Category_Id);
+            //3rd Explicit loading
             //     _context.Entry(product).Reference(c => c.Category).Load();
             // }
             //Option 4: Eager loading (Data relationated)
@@ -102,7 +102,7 @@ namespace entity_course_ude.Controllers
         [HttpGet("Delete")]
         public IActionResult Delete(int? id)
         {
-            var product =  _context.Product.FirstOrDefault(c => c.Product_Id == id);
+            var product = _context.Product.FirstOrDefault(c => c.Product_Id == id);
             if (product == null)
             {
                 return NotFound();
@@ -111,5 +111,37 @@ namespace entity_course_ude.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpGet("ManageTags")]
+        public IActionResult ManageTags(int id)
+        {
+            ProductTagViewModel productTags = new ProductTagViewModel
+            {
+                ProductTagList = _context.ProductTag.
+                    Include(t => t.Tag)
+                    .Include(p => p.Product)
+                    .Where(p => p.Product_Id == id),
+                ProductTag = new ProductTag()
+                {
+                    Product_Id = id
+                },
+                Product = _context.Product.FirstOrDefault(p => p.Product_Id == id)
+            };
+            //Temp load
+            List<int> tempListTagProduct = productTags.ProductTagList.Select(t => t.Tag_Id).ToList();
+            // Get all tags whose id's doesn't fit on temp list
+            var tempList = _context.Tag.Where(t => !tempListTagProduct.Contains(t.Tag_Id)).ToList();
+            productTags.TagList = tempList.Select(item => new SelectListItem
+            {
+                Text = item.Name,
+                Value = item.Tag_Id.ToString()
+            });
+            return View(productTags);
+        }
+        // [HttpPost]
+        // public IActionResult ManageTags(int id)
+        // {
+            
+        // }
     }
 }

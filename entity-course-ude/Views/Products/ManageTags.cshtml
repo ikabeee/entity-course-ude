@@ -1,0 +1,43 @@
+@model entity_course_ude.Models.ProductTagViewModel
+@{
+    ViewData["Title"] = "Administrar etiquetas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 class="text-center">Administrar etiquetas para el producto</h3>
+<form method="post" asp-action="ManageTags">
+    <input type="hidden" asp-for="Product.Product_Id" />
+    <input type="hidden" asp-for="ProductTag.Product_Id" />
+    <div class="row">
+        <div asp-validation-summary="ModelOnly" class="text-danger">
+            <div class="col-11 mt-4">
+                <div class="row">
+                    <div class="col-4">
+                        <label asp-for="Product.Name">Nombre</label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Product.Name" class="form-control" />
+                        <span asp-validation-for="Product.Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-4">
+                        <label for="tags">Etiquetas</label>
+                    </div>
+                    <div class="col-8">
+                        @Html.DropDownListFor(u => u.ProductTag.Tag_Id, Model.TagList, "--Seleccionar etiquetas",
+                        new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-3">
+                <a asp-action="Index" class="btn btn-secondary">Volver a lista</a>
+            </div>
+            <div class="col-5 offset-4">
+                <button type="submit" class="btn btn-primary form-control">Asociar etiquetas a los productos </button>
+                &nbsp;
+            </div>
+        </div>
+</form>
