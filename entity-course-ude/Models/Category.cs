@@ -9,14 +9,14 @@ namespace entity_course_ude.Models
 {
     public class Category
     {
-        [Key]
+        // [Key]
         public int Category_Id { get; set; }
-        [DisplayFormat(ConvertEmptyStringToNull = true, NullDisplayText = "[NULL]")]
-        [Required]
+        // [DisplayFormat(ConvertEmptyStringToNull = true, NullDisplayText = "[NULL]")]
+        // [Required]
         public string Name { get; set; }
-        [DataType(DataType.Date)]
+        // [DataType(DataType.Date)]
         public DateTime CreatedAt { get; set; }
-        [Required]
+        // [Required]
         public List<Product> Product { get; set; }
         public ICollection<ProductTag> ProductTag { get; set; }
 

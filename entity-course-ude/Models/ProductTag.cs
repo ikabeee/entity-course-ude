@@ -8,9 +8,9 @@ namespace entity_course_ude.Models
 {
     public class ProductTag
     {
-        [ForeignKey("Tag")]
+        // [ForeignKey("Tag")]
         public int Tag_Id { get; set; }
-        [ForeignKey("Product")]
+        // [ForeignKey("Product")]
         public int Product_Id { get; set; }
 
         public Product Product { get; set; }

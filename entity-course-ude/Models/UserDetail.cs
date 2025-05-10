@@ -8,9 +8,9 @@ namespace entity_course_ude.Models
 {
     public class UserDetail
     {
-        [Key]
+        // [Key]
         public int UserDetail_Id { get; set; }
-        [Required]
+        // [Required]
         public string Code { get; set; }
         public string Sport { get; set; }
         public string Pet { get; set; }

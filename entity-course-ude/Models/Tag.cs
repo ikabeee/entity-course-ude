@@ -8,9 +8,9 @@ namespace entity_course_ude.Models
 {
     public class Tag
     {
-        [Key]
+        // [Key]
         public int Tag_Id { get; set; }
-        [Required]
+        // [Required]
         public string Name { get; set; }
         public DateTime Date { get; set; }
     }
