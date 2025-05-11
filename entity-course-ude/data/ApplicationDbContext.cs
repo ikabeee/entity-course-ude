@@ -66,14 +66,8 @@ namespace entity_course_ude.data
             modelBuilder.Entity<Product>().HasOne(product => product.Category).WithMany(category => category.Product).HasForeignKey(product => product.Category_Id);
             //Many to Many
             modelBuilder.Entity<ProductTag>().HasKey(productTag => new { productTag.Tag_Id, productTag.Product_Id });
-
-
             modelBuilder.Entity<ProductTag>().HasOne(productTag => productTag.Product).WithMany(product => product.ProductTag).HasForeignKey(productTag => productTag.Product_Id);
-
-
             modelBuilder.Entity<ProductTag>().HasOne(productTag => productTag.Tag).WithMany(tag => tag.ProductTag).HasForeignKey(productTag => productTag.Tag_Id);
-
-
             base.OnModelCreating(modelBuilder);
         }
 
