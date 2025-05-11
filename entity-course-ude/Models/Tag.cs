@@ -13,5 +13,6 @@ namespace entity_course_ude.Models
         // [Required]
         public string Name { get; set; }
         public DateTime Date { get; set; }
+        public ICollection<ProductTag> ProductTag { get; set; }
     }
 }

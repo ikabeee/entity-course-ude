@@ -34,24 +34,16 @@ namespace entity_course_ude.Migrations
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Title");
 
                     b.HasKey("Category_Id");
 
                     b.ToTable("Category");
-
-                    b.HasData(
-                        new
-                        {
-                            Category_Id = 34,
-                            Active = true,
-                            CreatedAt = new DateTime(2021, 11, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Category 6"
-                        });
                 });
 
             modelBuilder.Entity("entity_course_ude.Models.Product", b =>
@@ -65,11 +57,14 @@ namespace entity_course_ude.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
                     b.Property<int>("Category_Id")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -82,14 +77,13 @@ namespace entity_course_ude.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)")
-                        .HasColumnName("Product_Name");
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Product_Id");
 
                     b.HasIndex("Category_Id");
 
-                    b.ToTable("Tbl_Product");
+                    b.ToTable("Tbl_Product", (string)null);
                 });
 
             modelBuilder.Entity("entity_course_ude.Models.ProductTag", b =>
@@ -121,7 +115,7 @@ namespace entity_course_ude.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Tag_Id"));
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -140,11 +134,14 @@ namespace entity_course_ude.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<int?>("UserDetail_Id")
                         .HasColumnType("int");
@@ -205,7 +202,7 @@ namespace entity_course_ude.Migrations
                         .IsRequired();
 
                     b.HasOne("entity_course_ude.Models.Tag", "Tag")
-                        .WithMany()
+                        .WithMany("ProductTag")
                         .HasForeignKey("Tag_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -232,6 +229,11 @@ namespace entity_course_ude.Migrations
                 });
 
             modelBuilder.Entity("entity_course_ude.Models.Product", b =>
+                {
+                    b.Navigation("ProductTag");
+                });
+
+            modelBuilder.Entity("entity_course_ude.Models.Tag", b =>
                 {
                     b.Navigation("ProductTag");
                 });

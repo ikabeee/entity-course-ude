@@ -17,7 +17,9 @@ namespace entity_course_ude.Migrations
                 {
                     Category_Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "date", nullable: false),
+                    Active = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -31,7 +33,7 @@ namespace entity_course_ude.Migrations
                     Tag_Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Date = table.Column<DateTime>(type: "date", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -45,8 +47,8 @@ namespace entity_course_ude.Migrations
                     UserDetail_Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Sport = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Pet = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Sport = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Pet = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -59,9 +61,10 @@ namespace entity_course_ude.Migrations
                 {
                     Product_Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Product_Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Date = table.Column<DateTime>(type: "date", nullable: false),
+                    Age = table.Column<int>(type: "int", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Grade = table.Column<double>(type: "float", nullable: false),
                     Category_Id = table.Column<int>(type: "int", nullable: false)
@@ -83,9 +86,9 @@ namespace entity_course_ude.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserDetail_Id = table.Column<int>(type: "int", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    UserDetail_Id = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -94,8 +97,7 @@ namespace entity_course_ude.Migrations
                         name: "FK_User_UserDetail_UserDetail_Id",
                         column: x => x.UserDetail_Id,
                         principalTable: "UserDetail",
-                        principalColumn: "UserDetail_Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "UserDetail_Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -147,7 +149,8 @@ namespace entity_course_ude.Migrations
                 name: "IX_User_UserDetail_Id",
                 table: "User",
                 column: "UserDetail_Id",
-                unique: true);
+                unique: true,
+                filter: "[UserDetail_Id] IS NOT NULL");
         }
 
         /// <inheritdoc />

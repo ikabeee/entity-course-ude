@@ -12,8 +12,8 @@ using entity_course_ude.data;
 namespace entity_course_ude.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20250506203919_ChangeStringToDateTimeOnCategory")]
-    partial class ChangeStringToDateTimeOnCategory
+    [Migration("20250511012051_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,12 +33,16 @@ namespace entity_course_ude.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Category_Id"));
 
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Title");
 
                     b.HasKey("Category_Id");
 
@@ -56,11 +60,14 @@ namespace entity_course_ude.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
                     b.Property<int>("Category_Id")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -73,14 +80,13 @@ namespace entity_course_ude.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)")
-                        .HasColumnName("Product_Name");
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Product_Id");
 
                     b.HasIndex("Category_Id");
 
-                    b.ToTable("Tbl_Product");
+                    b.ToTable("Tbl_Product", (string)null);
                 });
 
             modelBuilder.Entity("entity_course_ude.Models.ProductTag", b =>
@@ -112,7 +118,7 @@ namespace entity_course_ude.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Tag_Id"));
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -131,18 +137,23 @@ namespace entity_course_ude.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
-                    b.Property<int>("UserDetail_Id")
+                    b.Property<int?>("UserDetail_Id")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserDetail_Id")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[UserDetail_Id] IS NOT NULL");
 
                     b.ToTable("User");
                 });
@@ -194,7 +205,7 @@ namespace entity_course_ude.Migrations
                         .IsRequired();
 
                     b.HasOne("entity_course_ude.Models.Tag", "Tag")
-                        .WithMany()
+                        .WithMany("ProductTag")
                         .HasForeignKey("Tag_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -208,9 +219,7 @@ namespace entity_course_ude.Migrations
                 {
                     b.HasOne("entity_course_ude.Models.UserDetail", "UserDetail")
                         .WithOne("User")
-                        .HasForeignKey("entity_course_ude.Models.User", "UserDetail_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("entity_course_ude.Models.User", "UserDetail_Id");
 
                     b.Navigation("UserDetail");
                 });
@@ -223,6 +232,11 @@ namespace entity_course_ude.Migrations
                 });
 
             modelBuilder.Entity("entity_course_ude.Models.Product", b =>
+                {
+                    b.Navigation("ProductTag");
+                });
+
+            modelBuilder.Entity("entity_course_ude.Models.Tag", b =>
                 {
                     b.Navigation("ProductTag");
                 });
