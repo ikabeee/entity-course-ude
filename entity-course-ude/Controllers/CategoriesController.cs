@@ -152,5 +152,50 @@ namespace entity_course_ude.Controllers
             _context.SaveChanges();
             return Task.FromResult<IActionResult>(RedirectToAction(nameof(Index)));
         }
+
+        [HttpGet]
+        public void DifferedExecution()
+        {
+            var categories = _context.Category;
+            //When you use the deferred execution, the query is not executed until you enumerate it.
+            foreach (var category in categories)
+            {
+                var categoryName = "";
+                categoryName = category.Name;
+            }
+            //When you call whatever method that enumerate the query, the query is executed. ToList(), ToArray(), ToDictionary()
+            var categories2 = _context.Category.ToList();
+            foreach (var category in categories2)
+            {
+                var categoryName = "";
+                categoryName = category.Name;
+            }
+            //When you call whatever method that returns a single object
+            var category3 = _context.Category;
+            var categoriesTotal = _context.Category.Count();
+            var categoriesTotal2 = category3.Count();
+            var test = "";
+        }
+
+        //IEnumerable
+        //Es una interfaz que permite a una clase retornar una secuencia de valores item a item (un item a la vez). Cuando aplicas esta interfaz, también necesitas implementar IEnumerator interfaces, el cual provee el método necesario para iterar a traves de la colección. 
+        public void TestIEnumerable()
+        {
+            //El filtro se hace del lado del cliente
+            //Generamos una lista de categorías
+            IEnumerable<Category> categories = _context.Category;
+            //Iteramos a través de la lista de categorías se hace el filtro del lado de cliente
+            var activesCategories = categories.Where(c => c.Active == true).ToList;
+        }
+
+        //IQueryable
+        public void TestIQueryable()
+        {
+            //El filtro se hace del lado del servidor
+            //Generamos una lista de categorías
+            IQueryable<Category> categories = _context.Category;
+            //Iteramos a través de la lista de categorías se hace el filtro del lado de servidor
+            var activesCategories = categories.Where(c => c.Active == true).ToList();
+        }
     }
 }
