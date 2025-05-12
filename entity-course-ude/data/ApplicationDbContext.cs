@@ -22,6 +22,8 @@ namespace entity_course_ude.data
         public DbSet<UserDetail> UserDetail { get; set; }
         public DbSet<Tag> Tag { get; set; }
         public DbSet<ProductTag> ProductTag { get; set; }
+        public DbSet<CategoryFromView> CategoryFromView { get; set; }
+
 
 
         //Many to Many
@@ -68,6 +70,8 @@ namespace entity_course_ude.data
             modelBuilder.Entity<ProductTag>().HasKey(productTag => new { productTag.Tag_Id, productTag.Product_Id });
             modelBuilder.Entity<ProductTag>().HasOne(productTag => productTag.Product).WithMany(product => product.ProductTag).HasForeignKey(productTag => productTag.Product_Id);
             modelBuilder.Entity<ProductTag>().HasOne(productTag => productTag.Tag).WithMany(tag => tag.ProductTag).HasForeignKey(productTag => productTag.Tag_Id);
+            //Load from a SQL view with no primary key
+            modelBuilder.Entity<CategoryFromView>().HasNoKey().ToView("CategoryFromView");
             base.OnModelCreating(modelBuilder);
         }
 

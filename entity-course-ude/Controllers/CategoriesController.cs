@@ -197,5 +197,48 @@ namespace entity_course_ude.Controllers
             //Iteramos a través de la lista de categorías se hace el filtro del lado de servidor
             var activesCategories = categories.Where(c => c.Active == true).ToList();
         }
+
+        //Update
+        public void TestUpdate()
+        //Adjunta la entidad y la marca automáticamente con el estado de "Modified"
+        {
+            //Update
+            var userData = _context.User.Include(data => data.UserDetail).FirstOrDefault(d => d.Id == 2);
+            userData.UserDetail.Sport = "Futbol";
+            _context.User.Update(userData);
+            _context.SaveChanges();
+        }
+        //Attach
+        public void TestAttach()
+        {
+            //Adjunta la entidad al contexto con un estado inicial de "Unchanged"
+            //Nunca hace una actualización
+            //Update
+            var userData = _context.User.Include(data => data.UserDetail).FirstOrDefault(d => d.Id == 2);
+            userData.UserDetail.Sport = "Futbol";
+            _context.User.Attach(userData);
+            _context.SaveChanges();
+        }
+
+        //Call a view
+        public void CallView()
+        {
+            //Call a view
+            var useView1 = _context.CategoryFromView.ToList();
+            var useView2 = _context.CategoryFromView.FirstOrDefault();
+            var useView3 = _context.CategoryFromView.Where(c => c.Active == true);
+        }
+
+        public void QueryFromSQL()
+        {
+            //Query from SQL
+            var user = _context.User.FromSqlRaw("SELECT * FROM dbo.User").ToList();
+            //Query from SQL with parameters
+            var userId = 1;
+            var user2 = _context.User.FromSqlInterpolated($"SELECT * FROM dbo.User WHERE Id = {userId}").ToList();
+            //User from Stored Procedure
+            var userFromProcedure = _context.User.FromSqlInterpolated($"EXEC dbo.GetCategoryById {userId}").ToList();
+
+        }
     }
 }

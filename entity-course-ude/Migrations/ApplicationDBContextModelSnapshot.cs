@@ -43,7 +43,7 @@ namespace entity_course_ude.Migrations
 
                     b.HasKey("Category_Id");
 
-                    b.ToTable("Category");
+                    b.ToTable("Category", (string)null);
                 });
 
             modelBuilder.Entity("entity_course_ude.Models.Product", b =>
@@ -103,7 +103,7 @@ namespace entity_course_ude.Migrations
 
                     b.HasIndex("Product_Id");
 
-                    b.ToTable("ProductTag");
+                    b.ToTable("ProductTag", (string)null);
                 });
 
             modelBuilder.Entity("entity_course_ude.Models.Tag", b =>
@@ -122,7 +122,7 @@ namespace entity_course_ude.Migrations
 
                     b.HasKey("Tag_Id");
 
-                    b.ToTable("Tag");
+                    b.ToTable("Tag", (string)null);
                 });
 
             modelBuilder.Entity("entity_course_ude.Models.User", b =>
@@ -152,7 +152,7 @@ namespace entity_course_ude.Migrations
                         .IsUnique()
                         .HasFilter("[UserDetail_Id] IS NOT NULL");
 
-                    b.ToTable("User");
+                    b.ToTable("User", (string)null);
                 });
 
             modelBuilder.Entity("entity_course_ude.Models.UserDetail", b =>
@@ -175,7 +175,7 @@ namespace entity_course_ude.Migrations
 
                     b.HasKey("UserDetail_Id");
 
-                    b.ToTable("UserDetail");
+                    b.ToTable("UserDetail", (string)null);
                 });
 
             modelBuilder.Entity("entity_course_ude.Models.Product", b =>
